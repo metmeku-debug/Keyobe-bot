@@ -29,9 +29,8 @@ bot.command('latest', async (ctx) => {
 
         const messages = [];
         console.log('data is', data);
-        data.forEach((doc) => {
-            const data = doc.data();
-            messages.push(`${data.name}: ${data.status}`);
+        data.forEach((post) => {
+            messages.push(`${post.name || 'anonymous'}: ${post.status}`);
         });
 
         ctx.reply(`Latest statuses:\n\n${messages.join('\n\n')}`);

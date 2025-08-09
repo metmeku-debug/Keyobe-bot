@@ -18,18 +18,15 @@ bot.start((ctx) => {
 
 bot.command('latest', async (ctx) => {
     try {
-        const snapshot = await db
-            .collection('statuses')
-            .orderBy('timestamp', 'desc')
-            .limit(3)
-            .get();
+        const res = await fetch(`${API_BASE}/latest`);
 
-        if (snapshot.empty) {
-            return ctx.reply('No statuses posted yet.');
-        }
+        if (!res.ok) throw new Error('Failed to fetch latest statuses');
+
+        const data = await res.json();
 
         const messages = [];
-        snapshot.forEach((doc) => {
+        console.log('data is', data);
+        data.forEach((doc) => {
             const data = doc.data();
             messages.push(`${data.name}: ${data.status}`);
         });

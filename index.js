@@ -47,10 +47,7 @@ bot.command('mystatus', async (ctx) => {
 
         const res = await fetch(`${API_BASE}/mystatus`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': API_KEY,
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId }),
         });
 

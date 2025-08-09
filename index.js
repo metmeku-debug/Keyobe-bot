@@ -67,5 +67,12 @@ bot.command('mystatus', async (ctx) => {
     }
 });
 
+bot.telegram.setMyCommands([
+    { command: 'start', description: 'Start the bot and see welcome message' },
+    { command: 'latest', description: 'View the 3 most recent statuses' },
+    { command: 'mystatus', description: 'View your last 3 statuses' },
+]);
+
+
 bot.launch();
 console.log('Bot started with Firebase integration');

@@ -9,7 +9,7 @@ admin.initializeApp({
 
 const db = admin.firestore();
 const bot = new Telegraf(process.env.BOT_TOKEN);
-const API_BASE = 'https://status-board-challenge.onrender.com';
+const API_BASE = 'https://arrogant-chloe-metmeku-dab124e3.koyeb.app';
 
 bot.start((ctx) => {
     const firstName = ctx.from.first_name || 'there';

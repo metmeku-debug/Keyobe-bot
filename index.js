@@ -43,22 +43,26 @@ bot.command('latest', async (ctx) => {
 bot.command('mystatus', async (ctx) => {
     try {
         const userId = ctx.from.id;
-        const snapshot = await db
-            .collection('statuses')
-            .where('userId', '==', userId)
-            .orderBy('timestamp', 'desc')
-            .limit(3)
-            .get();
+        if (!userId) return ctx.reply('User ID not found.');
 
-        if (snapshot.empty) {
-            return ctx.reply('You have not posted any statuses yet.');
-        }
-
-        const messages = [];
-        snapshot.forEach((doc) => {
-            const data = doc.data();
-            messages.push(data.status);
+        const res = await fetch(`${API_BASE}/mystatus`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': API_KEY,
+            },
+            body: JSON.stringify({ userId }),
         });
+
+        if (!res.ok) throw new Error('Failed to fetch your statuses.');
+
+        const data = await res.json();
+
+        const button = [Markup.button.url("What's on your mind today ?", 'https://t.me/status_boardbot/challenge')];
+
+        if (!data.length) return ctx.reply('You have not posted any statuses yet.', Markup.inlineKeyboard(button));
+
+        const messages = data.map(post => post.status);
 
         ctx.reply(`Your last statuses:\n\n${messages.join('\n\n')}`);
     } catch (error) {

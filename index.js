@@ -33,7 +33,7 @@ bot.command('latest', async (ctx) => {
             messages.push(`${post.name || 'anonymous'}: ${post.status}`);
         });
 
-        ctx.reply(`Latest statuses:\n\n${messages.join('\n\n')}`);
+        ctx.reply(`📢 Latest statuses:\n\n${messages.join('\n\n')}`);
     } catch (error) {
         console.error('Error fetching latest statuses:', error);
         ctx.reply('Sorry, something went wrong fetching the latest statuses.');
@@ -61,7 +61,7 @@ bot.command('mystatus', async (ctx) => {
 
         const messages = data.map(post => post.status);
 
-        ctx.reply(`Your last statuses:\n\n${messages.join('\n\n')}`);
+        ctx.reply(`📢 Your last statuses:\n\n${messages.join('\n\n')}`);
     } catch (error) {
         console.error('Error fetching user statuses:', error);
         ctx.reply('Sorry, something went wrong fetching your statuses.');
